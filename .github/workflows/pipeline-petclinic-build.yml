@@ -12,11 +12,7 @@ jobs:
         distribution: 'adopt'
         cache: maven
     - name: Build Services & générer les images docker
-      run: |
-        mvn -f spring-petclinic-customers-service/pom.xml spring-boot:build-image  -DREPOSITORY_PREFIX=${REPOSITORY_PREFIX}
-        mvn -f spring-petclinic-api-gateway/pom.xml spring-boot:build-image  -DREPOSITORY_PREFIX=${REPOSITORY_PREFIX}
-        mvn -f spring-petclinic-vets-service/pom.xml spring-boot:build-image -DREPOSITORY_PREFIX=${REPOSITORY_PREFIX}
-        mvn -f spring-petclinic-visits-service/pom.xml spring-boot:build-image -DREPOSITORY_PREFIX=${REPOSITORY_PREFIX}
+      run: mvn spring-boot:build-image --file pom.xml -X  -DREPOSITORY_PREFIX=${REPOSITORY_PREFIX}
 
     - name: Login to Docker Hub
       uses: docker/login-action@v2
