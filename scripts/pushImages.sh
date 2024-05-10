@@ -1,5 +1,6 @@
 #!/bin/bash
 echo "début du déploiement ......."
+REPOSITORY_PREFIX=$1
 echo ${REPOSITORY_PREFIX}"/spring-petclinic-cloud-api-gateway:latest"
 
 #!/bin/bash
