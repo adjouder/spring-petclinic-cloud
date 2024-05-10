@@ -1,0 +1,27 @@
+name: Petclinic CI
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+        cache: maven
+    - name: Build Services & générer les images docker
+      run: |
+        mvn -f spring-petclinic-customers-service/pom.xml spring-boot:build-image  -DREPOSITORY_PREFIX=${REPOSITORY_PREFIX}
+        mvn -f spring-petclinic-api-gateway/pom.xml spring-boot:build-image  -DREPOSITORY_PREFIX=${REPOSITORY_PREFIX}
+        mvn -f spring-petclinic-vets-service/pom.xml spring-boot:build-image -DREPOSITORY_PREFIX=${REPOSITORY_PREFIX}
+        mvn -f spring-petclinic-visits-service/pom.xml spring-boot:build-image -DREPOSITORY_PREFIX=${REPOSITORY_PREFIX}
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: push docker images
+      run : ./scripts/pushImages.sh
