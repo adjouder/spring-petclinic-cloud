@@ -36,7 +36,7 @@ jobs:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       with:
         args: |
-          apply -f k8s/
+          apply -f k8s/init-secrets
 
     - name: Initialization of deployment Amazon EKS
       uses: kodermax/kubectl-aws-eks@main
@@ -44,7 +44,7 @@ jobs:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       with:
         args: |
-          apply -f k8s/init-secrets  
+          apply -f k8s/
 
     - name: add conf kub
       uses: kodermax/kubectl-aws-eks@main
