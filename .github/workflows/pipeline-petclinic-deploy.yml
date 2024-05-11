@@ -1,4 +1,4 @@
-name: Petclinic CI
+name: Petclinic CD
 on: [push]
 jobs:
   deploy:
