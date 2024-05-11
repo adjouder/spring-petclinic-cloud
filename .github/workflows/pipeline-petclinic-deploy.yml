@@ -71,7 +71,7 @@ jobs:
       with:
         args: |
           apply -f k8s/init-services
-@
+
     - name: get api 
       uses: kodermax/kubectl-aws-eks@main
       env:
