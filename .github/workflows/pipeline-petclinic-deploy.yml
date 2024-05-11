@@ -29,6 +29,7 @@ jobs:
       with:
         args: |
           get ns spring-petclinic || kubectl create ns spring-petclinic # create namespace if not exists
+          
 
     - name: Initialization of services Amazon EKS
       uses: kodermax/kubectl-aws-eks@main
@@ -36,7 +37,12 @@ jobs:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       with:
         args: |
-          apply -f ./k8s/init-secrets
+          kubectl delete secret db-secret-customers-service -n spring-petclinic --ignore-not-found
+          kubectl create secret generic db-secret-customers-service --from-literal=password=petclinic -n spring-petclinic
+          kubectl delete secret db-secret-visits-service -n spring-petclinic --ignore-not-found
+          kubectl create secret generic db-secret-visits-service --from-literal=password=petclinic -n spring-petclinic
+          kubectl delete secret db-secret-visits-service -n spring-petclinic --ignore-not-found
+          kubectl create secret generic db-secret-visits-service --from-literal=password=petclinic -n spring-petclinic
 
     - name: Initialization of deployment Amazon EKS
       uses: kodermax/kubectl-aws-eks@main
