@@ -30,13 +30,13 @@ jobs:
         args: |
           get ns spring-petclinic || kubectl create ns spring-petclinic # create namespace if not exists
 
-    #- name: Création des secrets maps
-     # uses: kodermax/kubectl-aws-eks@main
-      #env:
-       # KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-      #with:
-       # args: |
-        #  apply -f k8s/init-secrets/*.yaml
+    - name: Initialization of services Amazon EKS
+      uses: kodermax/kubectl-aws-eks@main
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+      with:
+        args: |
+          apply -f ./k8s/init-secrets
 
     - name: Initialization of deployment Amazon EKS
       uses: kodermax/kubectl-aws-eks@main
@@ -44,7 +44,7 @@ jobs:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       with:
         args: |
-          apply -f k8s/
+          apply -f ./k8s/
 
     - name: add conf kub
       uses: kodermax/kubectl-aws-eks@main
@@ -60,7 +60,7 @@ jobs:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       with:
         args: |
-          apply -f k8s/init-services
+          apply -f ./k8s/init-services
 
     - name: get api 
       uses: kodermax/kubectl-aws-eks@main
