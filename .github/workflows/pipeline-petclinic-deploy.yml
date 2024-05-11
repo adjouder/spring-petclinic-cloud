@@ -36,17 +36,7 @@ jobs:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       with:
         args: |
-          delete secret db-secret-customers-service -n spring-petclinic --ignore-not-found
-          create secret generic db-secret-customers-service --from-literal=password=petclinic -n spring-petclinic
-          #create secret generic db-secret-customers-service --from-literal=password=$DB_PASSWORD_CUSTOMERS -n spring-petclinic
-          
-          delete secret db-secret-visits-service -n spring-petclinic --ignore-not-found
-          create secret generic db-secret-visits-service --from-literal=password=petclinic -n spring-petclinic
-          #create secret generic db-secret-visits-service --from-literal=password=$DB_PASSWORD_VISITS -n spring-petclinic
-
-          delete secret db-secret-visits-service -n spring-petclinic --ignore-not-found
-          create secret generic db-secret-visits-service --from-literal=password=petclinic -n spring-petclinic
-          #create secret generic db-secret-visits-service --from-literal=password=$DB_PASSWORD_VISITS -n spring-petclinic
+          apply -f k8s/
 
     - name: Initialization of deployment Amazon EKS
       uses: kodermax/kubectl-aws-eks@main
@@ -54,8 +44,8 @@ jobs:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       with:
         args: |
-          apply -f k8s/
-          
+          apply -f k8s/init-secrets  
+
     - name: add conf kub
       uses: kodermax/kubectl-aws-eks@main
       env:
