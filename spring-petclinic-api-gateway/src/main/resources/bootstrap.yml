@@ -8,8 +8,8 @@ spring:
 management:
   metrics:
     export:
-      wavefront:
-        apiToken: ""
+#      wavefront:
+ #       apiToken: ""
 ---
 spring:
   config:
