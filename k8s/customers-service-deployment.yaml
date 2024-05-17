@@ -47,7 +47,7 @@ spec:
         - name: SPRING_PROFILES_ACTIVE
           value: kubernetes,mysql
         - name: SPRING_DATASOURCE_URL
-          value: customer-db.c0dng319gujr.eu-west-3.rds.amazonaws.com:3306/service_instance_db
+          value: jdbc:mysql://customer-db.c0dng319gujr.eu-west-3.rds.amazonaws.com:3306/service_instance_db
         - name: SPRING_DATASOURCE_USERNAME
           value: petclinic
         - name: SPRING_DATASOURCE_PASSWORD

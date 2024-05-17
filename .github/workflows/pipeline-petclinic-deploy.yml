@@ -40,11 +40,11 @@ jobs:
       with:
         args: |
           kubectl delete secret db-secret-customers-service -n spring-petclinic --ignore-not-found
-          kubectl create secret generic db-secret-customers-service --from-literal=password=petclinic -n spring-petclinic
+          kubectl create secret generic db-secret-customers-service --from-literal=password=password -n spring-petclinic
           kubectl delete secret db-secret-visits-service -n spring-petclinic --ignore-not-found
-          kubectl create secret generic db-secret-visits-service --from-literal=password=petclinic -n spring-petclinic
+          kubectl create secret generic db-secret-visits-service --from-literal=password=password -n spring-petclinic
           kubectl delete secret db-secret-vets-service -n spring-petclinic --ignore-not-found
-          kubectl create secret generic db-secret-vets-service --from-literal=password=petclinic -n spring-petclinic
+          kubectl create secret generic db-secret-vets-service --from-literal=password=password -n spring-petclinic
 
     - name: Initialization of deployment Amazon EKS
       uses: kodermax/kubectl-aws-eks@main
